@@ -2,6 +2,8 @@ const Bootcamp = require("../models/Bootcamp");
 const ErrorResponse = require("../utils/errorResponse");
 const errorResponse = require("../utils/errorResponse");
 const asyncHandler = require('../middleware/async')
+const geocoder = require('../utils/geocoder')
+
 //@desc Get all bootcamps
 //@route GET /api/v1/bootcamps
 //@ access Public
@@ -71,4 +73,16 @@ exports.deleteBootcamp = asyncHandler (async (req, res, next) => {
     }
     res.status(200).json({ success: true, data: {} });
  
+});
+
+
+//@desc Get  bootcamps within a radius
+//@route GET /api/v1/bootcamps/radius/:zipcode/:distance
+//@ access Private
+exports.getBootcampsInRadius = asyncHandler (async (req, res, next) => {
+
+ const {zipcode, distance} = req.params
+
+ // Get lat/lng from geocoder
+
 });
