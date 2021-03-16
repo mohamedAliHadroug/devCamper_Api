@@ -7,7 +7,7 @@ const errorHandler = require('./middleware/error')
 const connectDB = require("./config/db");
 const fileupload = require('express-fileupload')
 const path = require('path')
-
+const cookieParser = require('cookie-parser')
 //Load env vars
 dotenv.config({ path: "./config/config.env" });
 
@@ -18,12 +18,15 @@ connectDB();
 
 const bootcamps = require("./routes/bootcamps");
 const courses = require("./routes/courses");
+const auth = require('./routes/auth')
 
 const app = express();
 
 //Body parser to send data
 app.use(express.json())
 
+// Cookie parser to use cookie to store token...
+app.use(cookieParser())
 
 
 //dev logging middleware
@@ -40,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 //Mount Routes
 app.use("/api/v1/bootcamps", bootcamps);
 app.use("/api/v1/courses", courses);
+app.use("/api/v1/auth", auth)
 
 //middleware
 
