@@ -14,11 +14,13 @@ const Bootcamp = require('../models/Bootcamp')
 
 // Includes other resource routers
 const courseRouter = require('./courses')
+const reviewseRouter = require('./reviews')
 
 const router = express.Router();
 
 // Re-route into other resource routers
 router.use('/:bootcampId/courses', courseRouter)
+router.use('/:bootcampId/reviews', reviewseRouter)
 
 router.route("/").get(advancedResults(Bootcamp, 'courses'),getBootcamps).post(protect, authorize('publisher', 'admin'), createBootcamp);
 router
